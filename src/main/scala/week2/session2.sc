@@ -7,3 +7,11 @@ def factorial(n: Int): Int = {
 }
 
 factorial(4)
+
+def sumFactorials(a: Int, b: Int): Int =
+  if (a > b) 0 else factorial(a) + sumFactorials(a + 1, b)
+
+
+
+
+
