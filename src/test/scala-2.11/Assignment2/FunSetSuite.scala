@@ -108,5 +108,38 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("intersection contains only common elements of each set") {
+    new TestSets {
+      val s = union(s1, s2)
+      val s5 = union(s2, s3)
+      val s6 = intersect(s,s5)
 
+      assert(!contains(s6, 1), "Intersect 1")
+      assert(contains(s6, 2), "Intersect 2")
+      assert(!contains(s6, 3), "Intersect 3")
+    }
+  }
+
+  test("diff contains only the elements in a Set not present in another set ") {
+    new TestSets {
+      val s = union(s1, s2)
+      val s5 = union(s2, s3)
+      val s6 = diff(s,s5)
+
+      assert(contains(s6, 1), "Diff 1")
+      assert(!contains(s6, 2), "Diff 2")
+      assert(!contains(s6, 3), "Diff 3")
+    }
+  }
+  test("filter contains only the elements in a Set filtered by the function p ") {
+    new TestSets {
+      val s = union(s1, s2)
+      val s5 = union(s2, s3)
+      val s6 = filter(union(s5,singletonSet(4)), x => x%2 == 0)
+
+      assert(!contains(s6, 1), "Filter 1")
+      assert(contains(s6, 2), "Filter 2")
+      assert(contains(s6, 4), "Filter 4")
+    }
+  }
 }
