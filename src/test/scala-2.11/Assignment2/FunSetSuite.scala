@@ -142,4 +142,31 @@ class FunSetSuite extends FunSuite {
       assert(contains(s6, 4), "Filter 4")
     }
   }
+  test("forall checks that all the elements in a Set holds a certain property ") {
+    new TestSets {
+      val s = union(singletonSet(2), singletonSet(4))
+      val s5 = union(singletonSet(6), singletonSet(8))
+
+      assert(forall(s5, x => x%2 == 0), "Forall 1")
+      assert(!forall(s5, x => x%2 == 1), "Forall 1")
+    }
+  }
+  test("exists checks that there is an element that fits p ") {
+    new TestSets {
+      val s = union(union(union(union(singletonSet(2), singletonSet(4)),singletonSet(6)),singletonSet(8)),singletonSet(10))
+
+      assert(exists(s, x => x == 10), "Exists 10")
+      assert(exists(s, x => x == 4), "Exists 4")
+      assert(!exists(s, x => x == 5), "Doesn't Exists 5")
+      assert(!exists(s, x => x == 3), "Doesn't Exists 3")
+    }
+  }
+  test("map retrieves a new set in which all the elements are transformed ") {
+    new TestSets {
+      val s = union(union(union(union(singletonSet(1), singletonSet(5)),singletonSet(3)),singletonSet(7)),singletonSet(9))
+
+      assert(forall(map(s, x => x * 2), x => x%2 == 0), "All the elements are now even")
+      assert(forall(map(s, x => x * 2), x => !(x%2 != 0)), "there are no odd numbers")
+    }
+  }
 }
